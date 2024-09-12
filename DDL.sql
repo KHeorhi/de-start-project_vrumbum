@@ -12,12 +12,22 @@ CREATE TABLE IF NOT EXISTS car_shop.colors(
   , name  TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS car_shop.country(
+    id    SMALLSERIAL PRIMARY KEY NOT NULL
+  , name  TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS car_shop.brand(
+    id          SMALLSERIAL PRIMARY KEY NOT NULL
+  , name        TEXT NOT NULL
+  , country_id  SMALLINT REFERENCES car_shop.country(id)
+);
+
 CREATE TABLE IF NOT EXISTS car_shop.cars_model(
     id                    SMALLSERIAL PRIMARY KEY NOT NULL
-  , brand_name            TEXT NOT NULL
+  , brand_id              SMALLINT NOT NULL REFERENCES car_shop.brand(id)
   , model_name            TEXT NOT NULL
   , gasoline_consumption  NUMERIC(3, 1) default null
-  , brand_origin          TEXT
 );
 
 CREATE TABLE IF NOT EXISTS car_shop.customer(
